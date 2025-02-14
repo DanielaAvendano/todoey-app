@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "662434374039",
+    "project_id": "to-doey-bb4ac",
+    "storage_bucket": "to-doey-bb4ac.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662434374039:android:2b70c7a0f44f26c30924d2",
+        "android_client_info": {
+          "package_name": "com.example.to_doey"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAZxneKe887PAFIyUsU_vxR0JXC9FJD5E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
