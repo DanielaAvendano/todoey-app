@@ -3,8 +3,9 @@ import 'package:go_router/go_router.dart';
 
 import 'package:to_doey/src/auth/presentation/bloc/auth_bloc.dart';
 import 'package:to_doey/src/auth/presentation/views/auth_page.dart';
-import 'package:to_doey/src/todo/presentation/views/add_todo_page.dart';
-import 'package:to_doey/src/todo/presentation/views/home_page.dart';
+import 'package:to_doey/src/todo/presentation/views/add_todo_item_view.dart';
+import 'package:to_doey/src/todo/presentation/views/add_todo_view.dart';
+import 'package:to_doey/src/todo/presentation/views/home_view.dart';
 
 class AppRouter {
   final AuthBloc authBloc;
@@ -30,13 +31,17 @@ class AppRouter {
         path: '/add-todo',
         builder: (context, state) => const AddTodoPage(),
       ),
+      GoRoute(
+        path: '/add-todo-item/:id',
+        builder: (context, state) {
+          final todoListId = state.pathParameters['id']!;
+          return AddTodoItemPage(todoListId: todoListId);
+        },
+      ),
     ],
     redirect: (context, state) {
       final isGoingTo = state.uri.toString();
       final authState = authBloc.state;
-
-      print("Estado de autenticación: $authState");
-      print("Ruta solicitada: $isGoingTo");
 
       if (authState is! Authenticated && isGoingTo != '/signin') {
         return '/signin';

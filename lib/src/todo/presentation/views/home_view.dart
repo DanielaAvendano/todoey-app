@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:to_doey/src/todo/presentation/views/views.dart';
+import 'package:to_doey/src/todo/presentation/views/todo_list_view.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -45,7 +45,7 @@ class HomePage extends StatelessWidget {
           IconButton(onPressed: () {}, icon: const Icon(Icons.search_rounded))
         ],
       ),
-      body: const _TodoView(),
+      body: const TodoListView(),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
@@ -53,14 +53,5 @@ class HomePage extends StatelessWidget {
         },
       ),
     );
-  }
-}
-
-class _TodoView extends StatelessWidget {
-  const _TodoView();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('Listas de todos'));
   }
 }

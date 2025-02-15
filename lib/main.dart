@@ -6,8 +6,12 @@ import 'package:to_doey/config/config.dart';
 import 'package:to_doey/firebase_options.dart';
 import 'package:to_doey/src/auth/data/datasources/firebase_auth_service.dart';
 import 'package:to_doey/src/auth/data/repositories/auth_repository_impl.dart';
+import 'package:to_doey/src/todo/data/repositories/todo_list_repository.dart';
+
 import 'package:to_doey/src/auth/domain/usecases/sign_in_anonim.dart';
 import 'package:to_doey/src/auth/presentation/bloc/auth_bloc.dart';
+
+import 'package:to_doey/src/todo/presentation/bloc/todo_list_bloc.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,11 +27,15 @@ Future<void> main() async {
 
   final appRouter = AppRouter(authBloc);
 
+  final todoListRepository = TodoListRepository();
+  final todoListBloc = TodoListBloc(todoListRepository);
+
   runApp(
     MultiRepositoryProvider(
       providers: [
         RepositoryProvider<AuthBloc>.value(value: authBloc),
         RepositoryProvider<AppRouter>.value(value: appRouter),
+        RepositoryProvider<TodoListBloc>.value(value: todoListBloc),
       ],
       child: MyApp(),
     ),
