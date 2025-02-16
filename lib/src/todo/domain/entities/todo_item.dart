@@ -16,6 +16,21 @@ class TodoItem extends Equatable {
   final DateTime createdAt;
   final bool isCompleted;
 
+  TodoItem copyWith({
+    String? id,
+    String? description,
+    DateTime? createdAt,
+    bool? isCompleted,
+  }) {
+    return TodoItem(
+      id: id ?? this.id,
+      description: description ?? this.description,
+      translation: translation,
+      createdAt: createdAt ?? this.createdAt,
+      isCompleted: isCompleted ?? this.isCompleted,
+    );
+  }
+
   factory TodoItem.fromMap(Map<String, dynamic> map, String id) {
     return TodoItem(
       id: id,

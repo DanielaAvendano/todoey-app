@@ -14,6 +14,7 @@ class TodoListRepository {
   final CollectionReference _todosCollection =
       FirebaseFirestore.instance.collection(todoListsCollection);
 
+  //get all the todo lists
   Stream<List<TodoList>> getTodos() {
     final user = auth.currentUser;
     if (user == null) {
@@ -26,19 +27,31 @@ class TodoListRepository {
       return snapshot.docs.map((doc) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
 
-        List<TodoItem> items = [];
-        if (data.containsKey('items') && data['items'] is List) {
-          items = (data['items'] as List).map((item) {
-            return TodoItem.fromJson(item as Map<String, dynamic>);
-          }).toList();
-        }
-
         return TodoList(
           id: doc.id,
           title: data['title'],
           userId: data['userId'],
           createdAt: (data['createdAt'] as Timestamp).toDate(),
-          items: items,
+        );
+      }).toList();
+    });
+  }
+
+  //get all the todo lists items
+  Stream<List<TodoItem>> getTodosItems(String todoListId) {
+    return _todosCollection
+        .doc(todoListId)
+        .collection('items')
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs.map((doc) {
+        Map<String, dynamic> data = doc.data();
+        return TodoItem(
+          id: doc.id,
+          description: data['description'] ?? '',
+          translation: data['translation'] ?? '',
+          createdAt: (data['createdAt'] as Timestamp).toDate(),
+          isCompleted: data['isCompleted'] ?? false,
         );
       }).toList();
     });
@@ -49,15 +62,39 @@ class TodoListRepository {
       'title': todoList.title,
       'userId': todoList.userId,
       'createdAt': todoList.createdAt,
-      'items': [],
     });
-
     return docRef.id;
   }
 
-  Future<void> addTodoItem(String listId, TodoItem todoItem) async {
-    await firestore.collection(todoListsCollection).doc(listId).update({
-      'items': FieldValue.arrayUnion([todoItem.toJson()])
-    });
+  Future<TodoItem> addTodoItem(String listId, TodoItem todoItem) async {
+    final docRef = await firestore
+        .collection(todoListsCollection)
+        .doc(listId)
+        .collection(itemsSubcollection)
+        .add(todoItem.toJson());
+
+    final newTodoItem = todoItem.copyWith(id: docRef.id);
+    await docRef.update({'id': docRef.id});
+    return newTodoItem;
+  }
+
+  Future<void> updateTodoItem(String listId, TodoItem todoItem) async {
+    final docRef = firestore
+        .collection(todoListsCollection)
+        .doc(listId)
+        .collection(itemsSubcollection)
+        .doc(todoItem.id);
+
+    await docRef.update(todoItem.toJson());
+  }
+
+  Future<void> deleteTodoItem(String listId, TodoItem todoItem) async {
+    final docRef = firestore
+        .collection(todoListsCollection)
+        .doc(listId)
+        .collection(itemsSubcollection)
+        .doc(todoItem.id);
+
+    await docRef.delete();
   }
 }

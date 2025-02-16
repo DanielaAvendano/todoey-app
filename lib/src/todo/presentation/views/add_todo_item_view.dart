@@ -28,6 +28,8 @@ class AddTodoItemPageState extends State<AddTodoItemPage> {
       context
           .read<TodoListBloc>()
           .add(AddTodoItemEvent(widget.todoListId, todoItem));
+
+      context.read<TodoListBloc>().add(LoadTodosItems(widget.todoListId));
       _descriptionController.clear();
 
       context.pop();

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:to_doey/src/todo/data/repositories/todo_list_repository.dart';
+import 'package:to_doey/src/todo/domain/entities/todo_item.dart';
 import 'package:to_doey/src/todo/presentation/bloc/todo_list_bloc.dart';
 
 class TodoListView extends StatelessWidget {
@@ -51,20 +53,64 @@ class TodoListView extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 10),
-                              if (todoList.items.isEmpty)
-                                const Text("No hay tareas aún.")
-                              else
-                                Column(
-                                  children: todoList.items.map((item) {
-                                    return ListTile(
-                                      title: Text(item.description),
-                                      leading: Checkbox(
-                                        value: item.isCompleted,
-                                        onChanged: (value) {},
-                                      ),
-                                    );
-                                  }).toList(),
-                                ),
+                              StreamBuilder<List<TodoItem>>(
+                                stream: context
+                                    .read<TodoListRepository>()
+                                    .getTodosItems(todoList.id),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return const CircularProgressIndicator();
+                                  }
+                                  if (snapshot.hasError) {
+                                    return const Text(
+                                        "Error al cargar tareas.");
+                                  }
+                                  final items = snapshot.data ?? [];
+                                  if (items.isEmpty) {
+                                    return const Text("No hay tareas aún.");
+                                  }
+                                  return Column(
+                                    children: items.map((item) {
+                                      return ListTile(
+                                        title: Text(
+                                          item.description,
+                                          style: TextStyle(
+                                            decoration: item.isCompleted
+                                                ? TextDecoration.lineThrough
+                                                : TextDecoration.none,
+                                          ),
+                                        ),
+                                        leading: Checkbox(
+                                          value: item.isCompleted,
+                                          onChanged: (value) {
+                                            final updatedTodo = item.copyWith(
+                                                isCompleted: value);
+
+                                            context.read<TodoListBloc>().add(
+                                                  UpdateTodoItem(
+                                                    todoList.id,
+                                                    updatedTodo,
+                                                  ),
+                                                );
+                                          },
+                                        ),
+                                        trailing: IconButton(
+                                          icon: const Icon(Icons.delete),
+                                          onPressed: () {
+                                            context.read<TodoListBloc>().add(
+                                                  DeleteTodoItem(
+                                                    todoList.id,
+                                                    item,
+                                                  ),
+                                                );
+                                          },
+                                        ),
+                                      );
+                                    }).toList(),
+                                  );
+                                },
+                              ),
                               InkWell(
                                 onTap: () {
                                   context.push('/add-todo-item/${todoList.id}');
@@ -78,7 +124,7 @@ class TodoListView extends StatelessWidget {
                     },
                   );
           }
-          return SizedBox.shrink();
+          return Text('data');
         },
       ),
     );

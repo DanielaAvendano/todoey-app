@@ -7,6 +7,12 @@ abstract class TodoListEvent extends Equatable {
 
 class LoadTodos extends TodoListEvent {}
 
+class LoadTodosItems extends TodoListEvent {
+  final String listId;
+
+  LoadTodosItems(this.listId);
+}
+
 class CreateTodoListEvent extends TodoListEvent {
   final TodoList todoList;
 
@@ -33,4 +39,27 @@ class TodoListsUpdated extends TodoListEvent {
 
   @override
   List<Object> get props => [todoLists];
+}
+
+class TodoItemsUpdated extends TodoListEvent {
+  final List<TodoItem> todoItems;
+
+  TodoItemsUpdated(this.todoItems);
+
+  @override
+  List<Object> get props => [todoItems];
+}
+
+class UpdateTodoItem extends TodoListEvent {
+  final String listId;
+  final TodoItem todoItem;
+
+  UpdateTodoItem(this.listId, this.todoItem);
+}
+
+class DeleteTodoItem extends TodoListEvent {
+  final String listId;
+  final TodoItem itemId;
+
+  DeleteTodoItem(this.listId, this.itemId);
 }
