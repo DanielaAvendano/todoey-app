@@ -29,6 +29,8 @@ class AddTodoPageState extends State<AddTodoPage> {
       );
 
       context.read<TodoListBloc>().add(CreateTodoListEvent(todoList));
+
+      context.pop();
     }
   }
 

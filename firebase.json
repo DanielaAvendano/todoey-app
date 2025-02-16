@@ -1,1 +1,98 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"to-doey-bb4ac","appId":"1:662434374039:android:2b70c7a0f44f26c30924d2","fileOutput":"android/app/google-services.json"}},"ios":{"default":{"projectId":"to-doey-bb4ac","appId":"1:662434374039:ios:221088ed9343d6540924d2","uploadDebugSymbols":false,"fileOutput":"ios/Runner/GoogleService-Info.plist"}},"dart":{"lib/firebase_options.dart":{"projectId":"to-doey-bb4ac","configurations":{"android":"1:662434374039:android:2b70c7a0f44f26c30924d2","ios":"1:662434374039:ios:221088ed9343d6540924d2"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "to-doey-bb4ac",
+          "appId": "1:662434374039:android:2b70c7a0f44f26c30924d2",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "to-doey-bb4ac",
+          "appId": "1:662434374039:ios:221088ed9343d6540924d2",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "to-doey-bb4ac",
+          "configurations": {
+            "android": "1:662434374039:android:2b70c7a0f44f26c30924d2",
+            "ios": "1:662434374039:ios:221088ed9343d6540924d2"
+          }
+        }
+      }
+    }
+  },
+  "emulators": {
+    "auth": {
+      "port": 9099
+    },
+    "functions": {
+      "port": 5001
+    },
+    "firestore": {
+      "port": 8080
+    },
+    "database": {
+      "port": 9000
+    },
+    "hosting": {
+      "port": 5002
+    },
+    "pubsub": {
+      "port": 8085
+    },
+    "storage": {
+      "port": 9199
+    },
+    "eventarc": {
+      "port": 9299
+    },
+    "ui": {
+      "enabled": true
+    },
+    "singleProjectMode": true,
+    "dataconnect": {
+      "dataDir": "dataconnect/.dataconnect/pgliteData",
+      "port": 9399
+    }
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ],
+      "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" run build"
+      ]
+    }
+  ],
+  "dataconnect": {
+    "source": "dataconnect"
+  },
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  },
+  "storage": {
+    "rules": "storage.rules"
+  }
+}

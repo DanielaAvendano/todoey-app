@@ -20,6 +20,15 @@ class TodoListsLoaded extends TodoListState {
   List<Object> get props => [todoLists];
 }
 
+class TodoOperationSuccess extends TodoListState {
+  final String message;
+
+  TodoOperationSuccess(this.message);
+
+  @override
+  List<Object> get props => [message];
+}
+
 class TodoListError extends TodoListState {
   final String message;
 

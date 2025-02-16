@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:to_doey/src/auth/data/repositories/auth_repository_impl.dart';
+import 'package:to_doey/src/todo/data/repositories/todo_list_repository.dart';
+import 'package:to_doey/src/todo/presentation/bloc/todo_list_bloc.dart';
 import 'package:to_doey/src/todo/presentation/views/todo_list_view.dart';
 
 class HomePage extends StatelessWidget {
@@ -7,45 +11,20 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scaffoldKey = GlobalKey<ScaffoldState>();
-
     return Scaffold(
-      drawer: Drawer(
-        // Add a ListView to the drawer. This ensures the user can scroll
-        // through the options in the drawer if there isn't enough vertical
-        // space to fit everything.
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(color: Colors.blue),
-              child: Text('Drawer Header'),
-            ),
-            ListTile(
-              title: const Text('Item 1'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: const Text('Item 2'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-          ],
-        ),
-      ),
       appBar: AppBar(
         title: const Text('Lista de tareas'),
         actions: [
           IconButton(onPressed: () {}, icon: const Icon(Icons.search_rounded))
         ],
       ),
-      body: const TodoListView(),
+      body: BlocProvider(
+        create: (context) => TodoListBloc(
+          repository: RepositoryProvider.of<TodoListRepository>(context),
+          authRepository: RepositoryProvider.of<AuthRepositoryImpl>(context),
+        )..add(LoadTodos()),
+        child: TodoListView(),
+      ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {

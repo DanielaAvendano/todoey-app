@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:to_doey/src/todo/presentation/bloc/todo_list_bloc.dart';
 import '../../domain/entities/todo_item.dart';
 
@@ -20,6 +21,7 @@ class AddTodoItemPageState extends State<AddTodoItemPage> {
       final todoItem = TodoItem(
         id: '',
         description: _descriptionController.text,
+        createdAt: DateTime.now(),
         isCompleted: false,
       );
 
@@ -28,7 +30,7 @@ class AddTodoItemPageState extends State<AddTodoItemPage> {
           .add(AddTodoItemEvent(widget.todoListId, todoItem));
       _descriptionController.clear();
 
-      Navigator.of(context).pop();
+      context.pop();
     }
   }
 

@@ -7,4 +7,8 @@ class FirebaseAuthService {
     final userCredential = await _auth.signInAnonymously();
     return userCredential.user?.uid ?? "";
   }
+
+  Future<String> getUserId() async {
+    return _auth.currentUser?.uid ?? "";
+  }
 }

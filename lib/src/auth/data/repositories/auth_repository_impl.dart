@@ -16,4 +16,14 @@ class AuthRepositoryImpl implements AuthRepository {
       return Left(Exception("Error al autenticar anónimamente"));
     }
   }
+
+  @override
+  Future<String> getUserId() async {
+    try {
+      final userId = await authService.getUserId();
+      return userId;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

@@ -43,3 +43,15 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+
+/dataconnect
+/dataconnect-generated
+.firebaserc
+firebase.json
+firestore.indexes.json
+firestore.rules
+apphosting.yaml
+storage.rules
+
+
