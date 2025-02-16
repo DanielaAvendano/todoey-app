@@ -42,6 +42,7 @@ class TodoListRepository {
     return _todosCollection
         .doc(todoListId)
         .collection('items')
+        .orderBy('createdAt', descending: true)
         .snapshots()
         .map((snapshot) {
       return snapshot.docs.map((doc) {

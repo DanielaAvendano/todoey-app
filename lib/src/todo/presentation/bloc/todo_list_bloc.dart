@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:cloud_functions/cloud_functions.dart';
+
 import 'package:to_doey/src/auth/domain/repos/auth_repo.dart';
 import 'package:to_doey/src/todo/data/repositories/todo_list_repository.dart';
 import 'package:to_doey/src/todo/domain/entities/todo_item.dart';
@@ -83,7 +85,11 @@ class TodoListBloc extends Bloc<TodoListEvent, TodoListState> {
   Future<void> _onAddTodoItem(
       AddTodoItemEvent event, Emitter<TodoListState> emit) async {
     try {
-      await _repository.addTodoItem(event.listId, event.todoItem);
+      final item = await _repository.addTodoItem(
+        event.listId,
+        event.todoItem,
+      );
+      await _callTranslationApi(event.listId, item.id);
     } catch (e) {
       emit(TodoListError("Error al agregar la tarea"));
     }
@@ -104,6 +110,22 @@ class TodoListBloc extends Bloc<TodoListEvent, TodoListState> {
       await _repository.deleteTodoItem(event.listId, event.itemId);
     } catch (e) {
       emit(TodoListError("Error al actualizar la tarea"));
+    }
+  }
+
+  Future<void> _callTranslationApi(String listId, String itemId) async {
+    try {
+      HttpsCallable callable =
+          FirebaseFunctions.instance.httpsCallable('onTranslateText');
+
+      final response = await callable.call({
+        'listId': listId,
+        'itemId': itemId,
+      });
+
+      print('Respuesta de la función: ${response.data}');
+    } catch (e) {
+      print('Error al llamar la función: $e');
     }
   }
 

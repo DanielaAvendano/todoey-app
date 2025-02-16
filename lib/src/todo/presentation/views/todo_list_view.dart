@@ -5,8 +5,15 @@ import 'package:to_doey/src/todo/data/repositories/todo_list_repository.dart';
 import 'package:to_doey/src/todo/domain/entities/todo_item.dart';
 import 'package:to_doey/src/todo/presentation/bloc/todo_list_bloc.dart';
 
-class TodoListView extends StatelessWidget {
+class TodoListView extends StatefulWidget {
   const TodoListView({super.key});
+
+  @override
+  State<TodoListView> createState() => _TodoListViewState();
+}
+
+class _TodoListViewState extends State<TodoListView> {
+  final Map<String, bool> _showTranslation = {};
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +36,7 @@ class TodoListView extends StatelessWidget {
             return Center(child: Text(state.message));
           } else if (state is TodoListsLoaded) {
             return state.todoLists.isEmpty
-                ? Center(child: Text('No hay listas de tareas creadas'))
+                ? const Center(child: Text('No hay listas de tareas creadas'))
                 : ListView.builder(
                     itemCount: state.todoLists.length,
                     itemBuilder: (context, index) {
@@ -58,54 +65,88 @@ class TodoListView extends StatelessWidget {
                                     .read<TodoListRepository>()
                                     .getTodosItems(todoList.id),
                                 builder: (context, snapshot) {
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
-                                    return const CircularProgressIndicator();
-                                  }
                                   if (snapshot.hasError) {
                                     return const Text(
                                         "Error al cargar tareas.");
                                   }
+
                                   final items = snapshot.data ?? [];
                                   if (items.isEmpty) {
                                     return const Text("No hay tareas aún.");
                                   }
+
                                   return Column(
                                     children: items.map((item) {
-                                      return ListTile(
-                                        title: Text(
-                                          item.description,
-                                          style: TextStyle(
-                                            decoration: item.isCompleted
-                                                ? TextDecoration.lineThrough
-                                                : TextDecoration.none,
-                                          ),
-                                        ),
-                                        leading: Checkbox(
-                                          value: item.isCompleted,
-                                          onChanged: (value) {
-                                            final updatedTodo = item.copyWith(
-                                                isCompleted: value);
+                                      final bool showTranslation =
+                                          _showTranslation[item.id] ?? false;
+                                      final String displayedText =
+                                          (showTranslation &&
+                                                  item.translation.isNotEmpty)
+                                              ? item.translation
+                                              : item.description;
 
-                                            context.read<TodoListBloc>().add(
-                                                  UpdateTodoItem(
-                                                    todoList.id,
-                                                    updatedTodo,
-                                                  ),
-                                                );
-                                          },
-                                        ),
-                                        trailing: IconButton(
-                                          icon: const Icon(Icons.delete),
-                                          onPressed: () {
-                                            context.read<TodoListBloc>().add(
-                                                  DeleteTodoItem(
-                                                    todoList.id,
-                                                    item,
-                                                  ),
-                                                );
-                                          },
-                                        ),
+                                      return Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          ListTile(
+                                            title: Text(
+                                              displayedText,
+                                              style: TextStyle(
+                                                decoration: item.isCompleted
+                                                    ? TextDecoration.lineThrough
+                                                    : TextDecoration.none,
+                                              ),
+                                            ),
+                                            leading: Checkbox(
+                                              value: item.isCompleted,
+                                              onChanged: (value) {
+                                                final updatedTodo =
+                                                    item.copyWith(
+                                                        isCompleted: value);
+                                                context
+                                                    .read<TodoListBloc>()
+                                                    .add(
+                                                      UpdateTodoItem(
+                                                          todoList.id,
+                                                          updatedTodo),
+                                                    );
+                                              },
+                                            ),
+                                            trailing: IconButton(
+                                              icon: const Icon(Icons.delete),
+                                              onPressed: () {
+                                                context
+                                                    .read<TodoListBloc>()
+                                                    .add(
+                                                      DeleteTodoItem(
+                                                          todoList.id, item),
+                                                    );
+                                              },
+                                            ),
+                                          ),
+                                          InkWell(
+                                            onTap: () {
+                                              setState(() {
+                                                _showTranslation[item.id] =
+                                                    !showTranslation;
+                                              });
+                                            },
+                                            child: Text(
+                                              showTranslation
+                                                  ? 'Mostrar Original'
+                                                  : 'Mostrar Traducción',
+                                              style: const TextStyle(
+                                                color: Colors.blueAccent,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16,
+                                                decoration:
+                                                    TextDecoration.underline,
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10)
+                                        ],
                                       );
                                     }).toList(),
                                   );
@@ -115,7 +156,15 @@ class TodoListView extends StatelessWidget {
                                 onTap: () {
                                   context.push('/add-todo-item/${todoList.id}');
                                 },
-                                child: const Text("Agregar tarea"),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(Icons.add,
+                                        color: Colors.deepPurple),
+                                    const SizedBox(width: 10),
+                                    const Text('ADD TODO'),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
@@ -124,7 +173,7 @@ class TodoListView extends StatelessWidget {
                     },
                   );
           }
-          return Text('data');
+          return const Text('no data');
         },
       ),
     );
