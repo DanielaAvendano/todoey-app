@@ -1,16 +1,42 @@
-# to_doey
+# 📝 ToDoey List App
 
-A new Flutter project.
+📱 Aplicación móvil para la gestión de tareas desarrollada en Flutter y Firebase
 
-## Getting Started
+## 🎯 Objetivo
+Esta aplicación permite organizar tareas de manera eficiente. Cada tarea incluye:
 
-This project is a starting point for a Flutter application.
+✅ Título 
 
-A few resources to get you started if this is your first Flutter project:
+📝 Descripción
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+📌 Estado (pendiente o completada)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+📅 Fecha
+
+## 🚀 Funcionalidades
+
+✅ Agregar tareas y guardarlas en Firebase Cloud Firestore
+
+🌍 Traducción automática de la tarea a inglés mediante Firebase Cloud Functions
+
+📌 Ordenamiento de tareas por fecha y estado
+
+🌐 Mostrar versión traducida de la tarea
+
+✏️ Marcar tareas como completadas
+
+🗑 Eliminar tareas existentes
+
+## 🏗 Arquitectura
+
+Este proyecto sigue el enfoque de Arquitectura Limpia, dividiendo el código en capas bien definidas:
+
+-- Presentación: UI + Estado administrado con BLoC y flutter_bloc
+
+-- Dominio: Casos de uso y lógica de negocio
+
+-- Datos: Repositorios y acceso a Firestore
+
+
+ ### Desarrollado con ❤️ en Flutter 🚀
+
