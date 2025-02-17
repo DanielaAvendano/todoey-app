@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:to_doey/src/todo/data/repositories/todo_list_repository.dart';
 import 'package:to_doey/src/todo/domain/entities/todo_item.dart';
 import 'package:to_doey/src/todo/presentation/bloc/todo_list_bloc.dart';
+import 'package:intl/intl.dart';
 
 class TodoListView extends StatefulWidget {
   const TodoListView({super.key});
@@ -77,6 +78,10 @@ class _TodoListViewState extends State<TodoListView> {
 
                                   return Column(
                                     children: items.map((item) {
+                                      String formattedDate =
+                                          DateFormat('yyyy-MM-dd')
+                                              .format(item.createdAt);
+
                                       final bool showTranslation =
                                           _showTranslation[item.id] ?? false;
                                       final String displayedText =
@@ -132,19 +137,30 @@ class _TodoListViewState extends State<TodoListView> {
                                                     !showTranslation;
                                               });
                                             },
-                                            child: Text(
-                                              showTranslation
-                                                  ? 'Mostrar Original'
-                                                  : 'Mostrar Traducción',
-                                              style: const TextStyle(
-                                                color: Colors.blueAccent,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16,
-                                                decoration:
-                                                    TextDecoration.underline,
-                                              ),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  showTranslation
+                                                      ? 'Mostrar Original'
+                                                      : 'Mostrar Traducción',
+                                                  style: const TextStyle(
+                                                    color: Colors.blueAccent,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 16,
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  formattedDate,
+                                                ),
+                                              ],
                                             ),
                                           ),
+                                          const SizedBox(height: 10),
                                           const SizedBox(height: 10)
                                         ],
                                       );
