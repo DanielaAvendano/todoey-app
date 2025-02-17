@@ -17,6 +17,6 @@ class LocalUser extends Equatable {
 
   @override
   String toString() {
-    return 'LocalUser{uid: $uid';
+    return 'LocalUser uid: $uid';
   }
 }

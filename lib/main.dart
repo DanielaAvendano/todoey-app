@@ -48,6 +48,8 @@ class MyApp extends StatelessWidget {
       authRepository: authRepository,
     );
 
+    authBloc.add(CheckAuthStatusEvent());
+
     final appRouter = AppRouter(authBloc);
 
     return MultiBlocProvider(

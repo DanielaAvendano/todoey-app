@@ -128,11 +128,4 @@ class TodoListBloc extends Bloc<TodoListEvent, TodoListState> {
       print('Error al llamar la función: $e');
     }
   }
-
-  @override
-  Future<void> close() {
-    _todoListSubscription.cancel();
-    _todoItemsSubscription.cancel();
-    return super.close();
-  }
 }

@@ -13,7 +13,7 @@ class AppRouter {
   AppRouter(this.authBloc);
 
   late final GoRouter router = GoRouter(
-    initialLocation: '/signin',
+    initialLocation: '/',
     refreshListenable: GoRouterRefreshStream(authBloc.stream),
     routes: [
       ///* Auth Routes
