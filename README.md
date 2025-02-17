@@ -31,11 +31,11 @@ Esta aplicación permite organizar tareas de manera eficiente. Cada tarea incluy
 
 Este proyecto sigue el enfoque de Arquitectura Limpia, dividiendo el código en capas bien definidas:
 
--- Presentación: UI + Estado administrado con BLoC y flutter_bloc
+✨ Presentación: UI + Estado administrado con BLoC y flutter_bloc
 
--- Dominio: Casos de uso y lógica de negocio
+✨ Dominio: Casos de uso y lógica de negocio
 
--- Datos: Repositorios y acceso a Firestore
+✨ Datos: Repositorios y acceso a Firestore
 
 
  ### Desarrollado con ❤️ en Flutter 🚀
