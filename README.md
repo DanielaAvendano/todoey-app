@@ -18,7 +18,7 @@ Esta aplicación permite organizar tareas de manera eficiente.
 
 📝 Items de tareas , que se agregan a la lista de tareas grande
 
-📌 Estado (pendiente o completada) (por medio de chechbox)
+📌 Estado (pendiente o completada) (por medio de checkbox)
 
 📅 Fecha
 
