@@ -2,13 +2,18 @@
 
 📱 Aplicación móvil para la gestión de tareas desarrollada en Flutter y Firebase
 
-<img width="456" alt="Screenshot 2025-02-17 at 2 39 33 PM" src="https://github.com/user-attachments/assets/b37687e0-6c63-49ee-9b66-3028e73addcc" />
 
-<img width="463" alt="Screenshot 2025-02-17 at 2 43 10 PM" src="https://github.com/user-attachments/assets/8f9761e5-71ac-48c8-81f3-7f7cb86de465" />
- 
 <img width="444" alt="Screenshot 2025-02-17 at 2 41 56 PM" src="https://github.com/user-attachments/assets/8f240832-acf3-41a6-8e2f-6e3756e1cddb" />
-
+<img width="456" alt="Screenshot 2025-02-17 at 2 39 33 PM" src="https://github.com/user-attachments/assets/b37687e0-6c63-49ee-9b66-3028e73addcc" />
+<img width="463" alt="Screenshot 2025-02-17 at 2 43 10 PM" src="https://github.com/user-attachments/assets/8f9761e5-71ac-48c8-81f3-7f7cb86de465" />
 <img width="462" alt="Screenshot 2025-02-17 at 2 43 34 PM" src="https://github.com/user-attachments/assets/ac0c6a62-cb8f-42c3-8b4b-234de8e9fd47" />
+
+
+
+https://github.com/user-attachments/assets/9bc8b4d1-f88f-4e40-9a4a-49bfd69da752
+
+https://github.com/user-attachments/assets/5ea8d43c-e02d-4a7d-97e2-ac7e16e24f2b
+
 
 
 ## 🎯 Objetivo
