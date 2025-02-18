@@ -69,5 +69,16 @@ Este proyecto sigue el enfoque de Arquitectura Limpia, dividiendo el código en 
 Este modelo de datos es flexible y escalable, permitiendo gestionar listas de tareas y sus elementos en Firestore. 🚀
 
 
+## Instrucciones
+
+Para lanzar el proyecto: 
+
+1. git clone
+2. ``flutter doctor``
+3. Realizar el update de flutter en caso de ser necesario
+4. ``flutter pub get``
+5. ``flutter run`` 
+
+
  ### Desarrollado con ❤️ en Flutter 🚀
 
