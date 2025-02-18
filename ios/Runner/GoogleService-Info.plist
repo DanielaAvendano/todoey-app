@@ -9,7 +9,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.toDoey</string>
+	<string>com.avendanod.todoey</string>
 	<key>PROJECT_ID</key>
 	<string>to-doey-bb4ac</string>
 	<key>STORAGE_BUCKET</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:662434374039:ios:221088ed9343d6540924d2</string>
+	<string>1:662434374039:ios:04e1f473c69bb59b0924d2</string>
 </dict>
 </plist>
